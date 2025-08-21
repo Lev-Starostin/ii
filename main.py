@@ -29,7 +29,18 @@ def webhook():
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return '', 200
-    
+
+def escape_markdown(text: str) -> str:
+    escape_chars = r'[_*[\]()~`>#+\-=|{}.!]'
+    return re.sub(f'({escape_chars})', r'\\\1', text)
+
+MAX_LEN = 4096
+
+def send_long_message(chat_id, text, parse_mode="MarkdownV2"):
+    safe_text = escape_markdown(text)
+    for i in range(0, len(safe_text), MAX_LEN):
+        bot.send_message(chat_id, safe_text[i:i+MAX_LEN], parse_mode=parse_mode)
+        
 def load_photo(message, name):
     photo = message.photo[-1]
     file_info = bot.get_file(photo.file_id)
