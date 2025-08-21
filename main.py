@@ -29,14 +29,16 @@ def webhook():
     update = telebot.types.Update.de_json(json_str)
     bot.process_new_updates([update])
     return '', 200
-    def load_photo(message, name):
+    
+def load_photo(message, name):
     photo = message.photo[-1]
     file_info = bot.get_file(photo.file_id)
     downloaded_file = bot.download_file(file_info.file_path)
     save_path = name
     with open(save_path, 'wb') as new_file:
         new_file.write(downloaded_file)
-        history_file = "history.json"
+        
+history_file = "history.json"
 history = {}
 
 if os.path.exists(history_file):
