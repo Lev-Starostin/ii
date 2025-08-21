@@ -97,8 +97,7 @@ def chat(user_id, text):
     except Exception as e:
         return f"Ошибка при запросе: {e}"
         
-        
-    DEF
+     
 @bot.message_handler(commands=["start"])
 def send_welcome(message):
     try:
@@ -138,7 +137,7 @@ def information(message):
         bot.send_message(message.chat.id, f"Ошибка:{e}")
 
 
-@bot.message_handler(content_types=["text"])
+
 @bot.message_handler(content_types=['text'])
 def handle_text(message):
     try:
