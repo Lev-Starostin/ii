@@ -180,24 +180,12 @@ def handle_text(message):
         else:
             bot.send_message(message.chat.id, "Думаю над ответом...")
             answer = chat(message.chat.id, message.text)
-            bot.send_message(message.chat.id, answer, parse_mode='Markdown')
+            send_long_message(message.chat.id, answer, parse_mode="MarkdownV2")
+            #bot.send_message(message.chat.id, answer, parse_mode='Markdown')
             bot.delete_message(message.chat.id, message.id+1)
     except Exception as e:
         bot.send_message(message.chat.id, f"Ошибка: {e}")
-        elif text == "Игра в кубик":
-            keyboard2 = telebot.types.InlineKeyboardMarkup(row_width=3)
-            button1 = telebot.types.InlineKeyboardButton("1", callback_data='1')
-            button2 = telebot.types.InlineKeyboardButton("2", callback_data='2')
-            button3 = telebot.types.InlineKeyboardButton("3", callback_data='3')
-            button4 = telebot.types.InlineKeyboardButton("4", callback_data='4')
-            button5 = telebot.types.InlineKeyboardButton("5", callback_data='5')
-            button6 = telebot.types.InlineKeyboardButton("6", callback_data='6')
-            keyboard2.add(button1, button2, button3, button4, button5, button6)
-            bot.send_message(message.chat.id, "Угадай число на кубике", reply_markup=keyboard2)
-        else:
-            bot.send_message(message.chat.id, text)
-    except Exception as e:
-            bot.send_message(message.chat.id, f"Ошибка:{e}")
+        
 
 
 @bot.callback_query_handler(func=lambda call: call.data in ('1', '2', '3', '4', '5', '6'))
